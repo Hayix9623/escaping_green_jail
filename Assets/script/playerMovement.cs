@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isActing;
     private PlayerControl playerControls;
     private playerBar pb;
+    private bool playerstate = true;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -73,8 +74,15 @@ public class PlayerMovement : MonoBehaviour
         if (pb.slider.value < 6f)
         {
             _movesp = moveSpeed;
+        } 
+        if (playerstate)
+        {
+            rb.linearVelocity = moveDirection * _movesp;
         }
-        rb.linearVelocity = moveDirection * _movesp;  
+    }
+    public void PlayerState(bool statement)
+    {
+       playerstate = statement; 
     }
 }
 
