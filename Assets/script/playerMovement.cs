@@ -79,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = moveDirection * _movesp;
         }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
     public void PlayerState(bool statement)
     {

@@ -1,5 +1,7 @@
 using System.Collections;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class puzzle : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class puzzle : MonoBehaviour
     [SerializeField] private GameObject PuzzleGUI;
     private Animator puzAnimator;
     [SerializeField] private float ClickCoolTime = 1f;
+    private UnityEngine.UI.Image target;
+    public Sprite puzzle_sprite;
 
     private Coroutine clicking;
 
@@ -17,6 +21,7 @@ public class puzzle : MonoBehaviour
     {
         pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         puzAnimator = PuzzleGUI.GetComponent<Animator>();
+        target = PuzzleGUI.GetComponent<UnityEngine.UI.Image>();
     }
 
     void Update()
@@ -81,6 +86,7 @@ public class puzzle : MonoBehaviour
 
     private void showPuzzle()
     {
+        setImageTo();
         puzAnimator.SetBool("showed", true);
         pm.PlayerState(false);
         GUI(false);
@@ -91,5 +97,12 @@ public class puzzle : MonoBehaviour
         puzAnimator.SetBool("showed", false);
         pm.PlayerState(true);
         GUI(true);
+    }
+    private void setImageTo()
+    {
+        if (target != null && puzzle_sprite != null)
+        {
+            target.sprite = puzzle_sprite;
+        }
     }
 }
