@@ -8,20 +8,33 @@ public class puzzle : MonoBehaviour
     private PlayerMovement pm;
     private bool ontrigger;
     private int clickTime;
+    private scenceController sc;
     [SerializeField] private GameObject[] GUIs;
     [SerializeField] private GameObject PuzzleGUI;
     private Animator puzAnimator;
+    public Animator InputAnimator;
     [SerializeField] private float ClickCoolTime = 1f;
     private UnityEngine.UI.Image target;
+    private InputScript input;
     public Sprite puzzle_sprite;
-
+    public int myindex;
+    public bool completeStat;
     private Coroutine clicking;
+    [Header("驗證設定")]
+    [Tooltip("正確的答案/目標字串")]
+    public string correctValue = "UNITY"; 
+    [Header("顏色設定")]
+    public Color correctColor = Color.green;   // 正確時的顏色 (綠色)
+    public Color incorrectColor = Color.red;   // 錯誤時的顏色 (紅色)
+    public Color defaultColor = Color.white;   // 預設顏色 (黑色)
 
     void Awake()
     {
+        sc = GameObject.FindGameObjectWithTag("GameController").GetComponent<scenceController>();
         pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         puzAnimator = PuzzleGUI.GetComponent<Animator>();
         target = PuzzleGUI.GetComponent<UnityEngine.UI.Image>();
+        input = GameObject.FindGameObjectWithTag("Input").GetComponent<InputScript>();
     }
 
     void Update()
@@ -70,33 +83,41 @@ public class puzzle : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
             ontrigger = true;
+            input.puzzleIndex = myindex;
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
             ontrigger = false;
+
     }
 
-    private void GUI(bool state)
+    public void GUI(bool state)
     {
         for (int i = 0; i < GUIs.Length; i++)
             GUIs[i].SetActive(state);
     }
 
-    private void showPuzzle()
+    public void showPuzzle()
     {
+        input.ClearInput();
         setImageTo();
+        loadInput();
         puzAnimator.SetBool("showed", true);
+        InputAnimator.SetBool("appear",true);
         pm.PlayerState(false);
         GUI(false);
     }
 
-    private void closePuzzle()
+    public void closePuzzle()
     {
-        puzAnimator.SetBool("showed", false);
         pm.PlayerState(true);
-        GUI(true);
+        puzAnimator.SetBool("showed", false);
+        InputAnimator.SetBool("appear",false);
+        input.ResetTextColor();
+        input.ClearInput();
+        if (sc.completePuzzle_num != 3) GUI(true);
     }
     private void setImageTo()
     {
@@ -104,5 +125,12 @@ public class puzzle : MonoBehaviour
         {
             target.sprite = puzzle_sprite;
         }
+    }
+    private void loadInput()
+    {
+        input.correctValue = correctValue;
+        input.correctColor = correctColor;
+        input.incorrectColor = incorrectColor;
+        input.defaultColor = defaultColor;
     }
 }
