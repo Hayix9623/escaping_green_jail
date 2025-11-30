@@ -26246,7 +26246,7 @@ Transform:
   m_GameObject: {fileID: 617830535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -55.55, y: -21.58, z: -10}
+  m_LocalPosition: {x: -4.7200003, y: 1.4000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26283,7 +26283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::scenceController
   completePuzzle_num: 0
-  required_num: 2
+  required_num: 1
   drama: {fileID: 927960516}
 --- !u!4 &927960515
 Transform:
@@ -93400,11 +93400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5421740116818389488, guid: 258bf6bf0e376724d9a2cff5c3540a22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -55.55
+      value: -4.72
       objectReference: {fileID: 0}
     - target: {fileID: 5421740116818389488, guid: 258bf6bf0e376724d9a2cff5c3540a22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21.58
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 5421740116818389488, guid: 258bf6bf0e376724d9a2cff5c3540a22, type: 3}
       propertyPath: m_LocalPosition.z
