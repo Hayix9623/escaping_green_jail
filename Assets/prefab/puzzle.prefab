@@ -85,8 +85,16 @@ MonoBehaviour:
   GUIs:
   - {fileID: 0}
   PuzzleGUI: {fileID: 0}
+  InputAnimator: {fileID: 0}
   ClickCoolTime: 0.5
   puzzle_sprite: {fileID: 0}
+  myindex: 0
+  completeStat: 0
+  correctValue: UNITY
+  characterLimit: 0
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  incorrectColor: {r: 1, g: 0, b: 0, a: 1}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!50 &6000215786731512242
 Rigidbody2D:
   serializedVersion: 5

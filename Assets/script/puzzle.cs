@@ -2,6 +2,7 @@ using System.Collections;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class puzzle : MonoBehaviour
 {
@@ -19,10 +20,12 @@ public class puzzle : MonoBehaviour
     public Sprite puzzle_sprite;
     public int myindex;
     public bool completeStat;
+    private InputField inputField;
     private Coroutine clicking;
     [Header("驗證設定")]
     [Tooltip("正確的答案/目標字串")]
     public string correctValue = "UNITY"; 
+    public int characterLimit;
     [Header("顏色設定")]
     public Color correctColor = Color.green;   // 正確時的顏色 (綠色)
     public Color incorrectColor = Color.red;   // 錯誤時的顏色 (紅色)
@@ -35,6 +38,7 @@ public class puzzle : MonoBehaviour
         puzAnimator = PuzzleGUI.GetComponent<Animator>();
         target = PuzzleGUI.GetComponent<UnityEngine.UI.Image>();
         input = GameObject.FindGameObjectWithTag("Input").GetComponent<InputScript>();
+        inputField = GameObject.FindGameObjectWithTag("Input").GetComponent<InputField>();
     }
 
     void Update()
@@ -104,6 +108,7 @@ public class puzzle : MonoBehaviour
         input.ClearInput();
         setImageTo();
         loadInput();
+        SetCharacterLimit(characterLimit);
         puzAnimator.SetBool("showed", true);
         InputAnimator.SetBool("appear",true);
         pm.PlayerState(false);
@@ -132,5 +137,13 @@ public class puzzle : MonoBehaviour
         input.correctColor = correctColor;
         input.incorrectColor = incorrectColor;
         input.defaultColor = defaultColor;
+    }
+    private void SetCharacterLimit(int limit)
+    {
+        if (inputField != null)
+        {
+            // 對於 UGUI
+            inputField.characterLimit = limit;
+        }
     }
 }

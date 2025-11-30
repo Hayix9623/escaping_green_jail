@@ -79,23 +79,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = moveDirection * _movesp;
         }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
     public void PlayerState(bool statement)
     {
         playerstate = statement; 
-        
-        if (statement == false) // 鎖定玩家時 (進入謎題)
-        {
-            // 確保剛體速度清零
-            rb.linearVelocity = Vector2.zero;
-        }
-        else // 解鎖玩家時 (關閉謎題)
-        {
-            rb.linearVelocity = Vector2.zero; 
-            playerAm.SetFloat("Ymove", 0);
-            playerAm.SetFloat("Xmove", 0);
-            playerAm.SetFloat("XY", 0);
-        }
     }
 }
 
