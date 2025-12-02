@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log(moveDirection);
         moveDirection = move.action.ReadValue<Vector2>();
         isSprinting = sprint.action.ReadValue<float>() > 0f;
         isActing = act.action.WasPressedThisFrame();
