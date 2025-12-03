@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Input
   - puzzle
+  - fade
   layers:
   - Default
   - TransparentFX
