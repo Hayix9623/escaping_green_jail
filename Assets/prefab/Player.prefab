@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 5421740116818389488}
   - component: {fileID: 2970887253506544934}
   - component: {fileID: 5834645295964000125}
-  - component: {fileID: 4332764445860177801}
   - component: {fileID: 3173161035637988029}
   - component: {fileID: 2979742986907773638}
   - component: {fileID: 7842949049503215335}
   - component: {fileID: -3085394451409329496}
   - component: {fileID: 8004571901271472548}
+  - component: {fileID: 6919029982759128584}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.29, y: 2.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6063263, y: 0.670887, z: 1.9446}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 908375881882586104}
@@ -118,28 +118,6 @@ MonoBehaviour:
     m_Extent: {x: 0, y: 0, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
---- !u!95 &4332764445860177801
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122709487505848137}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0958cd1dc04787d40a03ae51b996efcc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3173161035637988029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +242,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -16.790249, y: -10.296786}
+  m_Offset: {x: 0.025148034, y: -1.1147897}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -274,8 +252,30 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.3075485, y: 10.9187565}
+  m_Size: {x: 1.2090697, y: 2.724135}
   m_EdgeRadius: 0
+--- !u!95 &6919029982759128584
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122709487505848137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cfee43b90acf86b4fb9a3346b1dfc8a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3343118471618290147
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +399,6 @@ GameObject:
   - component: {fileID: 908375881882586104}
   - component: {fileID: 9123058743065924648}
   - component: {fileID: 7503291442362480167}
-  - component: {fileID: 3380836705211446003}
   - component: {fileID: 8561570502809460389}
   m_Layer: 0
   m_Name: playerCam
@@ -417,7 +416,7 @@ Transform:
   m_GameObject: {fileID: 6912020433477255429}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000071525574, y: 0.00000023841858, z: -10}
+  m_LocalPosition: {x: -0.0000003932183, y: 0.00000017768907, z: -5.1424456}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -448,7 +447,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 7.5
+    OrthographicSize: 4.57
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -497,21 +496,6 @@ MonoBehaviour:
     Time: 0
     Smoothing: 0
     IgnoreY: 0
---- !u!114 &3380836705211446003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6912020433477255429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCameraOffset
-  Offset: {x: -1.65, y: 0, z: 0}
-  ApplyAfter: 1
-  PreserveComposition: 0
 --- !u!114 &8561570502809460389
 MonoBehaviour:
   m_ObjectHideFlags: 0
