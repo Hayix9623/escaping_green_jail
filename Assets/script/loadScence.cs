@@ -12,7 +12,7 @@ public class LoadScene : MonoBehaviour
     
     // 外部设置的、通过 OnTriggerEnter2D 切换的目标场景名称
     public string LoadSceneName;
-    public bool istrigged;
+    public bool istrigged = false;
 
     // ----------------------------------------------------
     // I. 外部调用：启动场景切换 (淡出)

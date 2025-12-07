@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference sprint;
     public InputActionReference act;
     private Vector2 latestMovement;
-    private Animator playerAm;
+    public GameObject[] playerAm;
     private bool isSprinting = false;
     public bool isActing;
     private PlayerControl playerControls;
@@ -26,20 +26,21 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerAm = GetComponent<Animator>();
         _movesp = moveSpeed;
         playerControls = new PlayerControl();
         pb = GetComponent<playerBar>();
     }
     void Update()
     {
-        Debug.Log(moveDirection);
         moveDirection = move.action.ReadValue<Vector2>();
         isSprinting = sprint.action.ReadValue<float>() > 0f;
         isActing = act.action.WasPressedThisFrame();
-        playerAm.SetFloat("Ymove", moveDirection.y);
-        playerAm.SetFloat("Xmove", moveDirection.x);
-        playerAm.SetFloat("XY", moveDirection.x + moveDirection.y);
+        for (int i =0;i < playerAm.Length; i++)
+        {
+            playerAm[i].GetComponent<Animator>().SetFloat("Xmove",moveDirection.x);
+            playerAm[i].GetComponent<Animator>().SetFloat("Ymove",moveDirection.y);
+            playerAm[i].GetComponent<Animator>().SetFloat("XY",moveDirection.x+moveDirection.y);
+        }
     }
     void OnEnable()
     {
@@ -88,6 +89,36 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerState(bool statement)
     {
         playerstate = statement; 
+    }
+    public void initAnimation(int index)
+    {
+        for (int i = 1; i <=4; i++)
+        {
+            if (i != index)
+            {
+                playerAm[i].SetActive(false);
+            }
+            else
+            {
+                playerAm[i].SetActive(true);
+            }
+        }
+    }
+    public void down_init()
+    {
+        initAnimation(2);
+    }
+    public void left_init()
+    {
+        initAnimation(3);
+    }
+    public void right_init()
+    {
+        initAnimation(4);
+    }
+    public void up_init()
+    {
+        initAnimation(1);
     }
 }
 

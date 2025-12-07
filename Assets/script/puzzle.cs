@@ -34,7 +34,7 @@ public class puzzle : MonoBehaviour
     void Awake()
     {
         sc = GameObject.FindGameObjectWithTag("GameController").GetComponent<scenceController>();
-        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        pm = GameObject.FindGameObjectWithTag("origin_player").GetComponent<PlayerMovement>();
         puzAnimator = PuzzleGUI.GetComponent<Animator>();
         target = PuzzleGUI.GetComponent<UnityEngine.UI.Image>();
         input = GameObject.FindGameObjectWithTag("Input").GetComponent<InputScript>();
@@ -43,7 +43,6 @@ public class puzzle : MonoBehaviour
 
     void Update()
     {
-        // 玩家按下（或你的 pm 的按鍵條件）
         if (pm.isActing && ontrigger)
         {
             StartClickCoroutine();
