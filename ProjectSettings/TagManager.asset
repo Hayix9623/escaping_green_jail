@@ -8,6 +8,7 @@ TagManager:
   - puzzle
   - fade
   - origin_player
+  - pos
   layers:
   - Default
   - TransparentFX
