@@ -13,6 +13,7 @@ public class LoadScene : MonoBehaviour
     // 外部设置的、通过 OnTriggerEnter2D 切换的目标场景名称
     public string LoadSceneName;
     public bool istrigged = false;
+    public bool ending2 = false;
 
     // ----------------------------------------------------
     // I. 外部调用：启动场景切换 (淡出)
@@ -29,9 +30,15 @@ public class LoadScene : MonoBehaviour
         // 1. 存储目标场景名称
         targetSceneName = sceneName;
 
-        // 2. 触发 Animator 开始播放 FadeOut 动画 (从透明到不透明)
-        // 你的代码原本使用的 Trigger 是 "StartFade"，我们保留它
-        faderAnimator.SetTrigger("StartFade"); 
+        if (ending2)
+        {
+            faderAnimator.SetTrigger("ending2"); 
+            
+        }
+        else
+        {
+            faderAnimator.SetTrigger("StartFade");             
+        }
     }
     void Update()
     {
@@ -54,6 +61,17 @@ public class LoadScene : MonoBehaviour
         {
             // 使用同步加载 LoadScene
             SceneManager.LoadScene(targetSceneName);
+        }
+    }
+    public void fadeintoEnding2()
+    {
+        // 场景现在完全被 Fader 遮挡（Alpha=1）
+       
+        // 3. 开始加载新场景
+        if (!string.IsNullOrEmpty("ending2"))
+        {
+            // 使用同步加载 LoadScene
+            SceneManager.LoadScene("ending2");
         }
     }
     public void ReceiveAnimationEvent() 

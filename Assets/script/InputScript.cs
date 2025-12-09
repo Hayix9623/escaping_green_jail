@@ -14,6 +14,7 @@ public class InputScript : MonoBehaviour
     public Animator InputAnimator;
     public int puzzleIndex;
     private Coroutine closing;
+    private Coroutine  cleaning;
     private scenceController sc;
     public GameObject[] puzzles;
     private puzzle puzScript;
@@ -48,11 +49,12 @@ public class InputScript : MonoBehaviour
             // 驗證失敗
             SetInputTextColor(incorrectColor);
             Invoke("ResetTextColor", 1.0f); 
+            OnWrongInput();
         }
     }
 
     // 實際設定文字顏色的函數
-    void SetInputTextColor(Color targetColor)
+    public void SetInputTextColor(Color targetColor)
     {
         // Input Field 的文字物件是它的 TextComponent 屬性
         if (inputField.textComponent is TextMeshProUGUI tmpText)
@@ -88,10 +90,23 @@ public class InputScript : MonoBehaviour
         closing = StartCoroutine(closeGUI());
         sc.playDrama();
     }
+    void OnWrongInput()
+    {
+       if (cleaning != null)
+        {
+            StopCoroutine(cleanTexts());
+        } 
+        cleaning = StartCoroutine(cleanTexts());
+    }
     IEnumerator closeGUI()
     {
         yield return new WaitForSeconds(1f);
         puzScript.closePuzzle();
+    }
+    IEnumerator cleanTexts()
+    {
+        yield return new WaitForSeconds(1f);
+        ClearInput();
     }
     public void ClearInput()
 {

@@ -104,6 +104,7 @@ public class puzzle : MonoBehaviour
 
     public void showPuzzle()
     {
+        input.SetInputTextColor(defaultColor);
         input.ClearInput();
         setImageTo();
         loadInput();
