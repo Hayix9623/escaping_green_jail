@@ -7,12 +7,16 @@ public class playerBar : MonoBehaviour
 {
     public Slider slider;
     public float maxVaule = 100f;
+    public Image fill;
+    public Gradient color;
     private float currentVaule;
     public float duration = 1f;
+    
     private Coroutine currentCoroutine;
     void Start()
     {
         slider.value = maxVaule;
+        color.Evaluate(1f);
     }
     public void SliderTovaule(float vaule)
     {
@@ -24,6 +28,7 @@ public class playerBar : MonoBehaviour
     private IEnumerator setToVaule(float targetValue)
     {
         float startValue = slider.value;
+        fill.color = color.Evaluate(slider.normalizedValue);
         float totalDistance = Mathf.Abs(targetValue - startValue);
         float elapsed = 0f;
         float speed = totalDistance / duration;
