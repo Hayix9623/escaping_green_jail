@@ -9,6 +9,8 @@ TagManager:
   - fade
   - origin_player
   - pos
+  - button
+  - sprint
   layers:
   - Default
   - TransparentFX

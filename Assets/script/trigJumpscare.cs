@@ -7,7 +7,6 @@ public class trigJumpscare : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("player");
             jumpscare.SetTrigger("jumpscare");
         }
     }

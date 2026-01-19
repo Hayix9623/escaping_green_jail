@@ -28,6 +28,7 @@ public class InputScript : MonoBehaviour
             SetInputTextColor(defaultColor); 
 
             // 監聽 onEndEdit 事件：當使用者按下 Enter 或失去焦點時觸發
+            inputField.onEndEdit.RemoveAllListeners();
             inputField.onEndEdit.AddListener(ValidateInput);
         }
     }
@@ -39,8 +40,8 @@ public class InputScript : MonoBehaviour
         string inputToCompare = inputText.Trim().ToUpper(); // 轉成大寫方便不區分大小寫比較
 
         if (inputToCompare == correctValue.ToUpper())
-        {
-            // 驗證成功
+        {   
+            sc.completePuzzle_num++;
             SetInputTextColor(correctColor);
             OnCorrectInput(inputText);
         }
@@ -81,12 +82,12 @@ public class InputScript : MonoBehaviour
     // 驗證成功後執行回傳值的具體函數
     void OnCorrectInput(string finalValue)
     {
+        
         if (closing != null)
         {
             StopCoroutine(closeGUI());
         }
         puzzles[puzzleIndex].SetActive(false);
-        sc.completePuzzle_num += 1;
         closing = StartCoroutine(closeGUI());
         sc.playDrama();
     }

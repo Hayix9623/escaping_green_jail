@@ -54,8 +54,6 @@ public class ending : MonoBehaviour
     // 處理輸入動作執行的函式
     private void OnActPerformed(InputAction.CallbackContext context)
     {
-        // 只有在這裡，在按鍵被按下時，才會執行以下代碼
-        Debug.Log("Act Performed!");
         
         // 檢查是否還有下一段對話
         if (index < talks.Length - 1)

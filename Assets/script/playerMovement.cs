@@ -2,39 +2,68 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.UI;
+using Unity.Mathematics;
 
 
 
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float sprintspeed = 8f;
-    private float _movesp;
-    private Vector2 moveDirection;
+    [Header("Input Reference")]
     public InputActionReference move;
     public InputActionReference sprint;
     public InputActionReference act;
-    private Vector2 latestMovement;
+    [SerializeField] private GameObject controller;
+    [SerializeField] private GameObject sprint_button;
+    private Joystick joystick;
+    [Header("game reference")]
+    private Rigidbody2D rb;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float sprintspeed = 8f;
     public GameObject[] playerAm;
+    private float _movesp;
+    private Vector2 moveDirection;
+    
+    private Vector2 latestMovement;
+
     private bool isSprinting = false;
     public bool isActing;
-    private PlayerControl playerControls;
+    public bool trigged;
+    [Header("script reference")]
+    [SerializeField] private sprinting_button sb;
+    [SerializeField] private acting_button ab;
     private playerBar pb;
+
+    private puzzle puz;
+
+
+    [Header("game settings")]
+    public bool isPC;
+    private PlayerInputActions playerControls;
     private bool playerstate = true;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         _movesp = moveSpeed;
-        playerControls = new PlayerControl();
+        joystick = controller.GetComponent<Joystick>();
+        playerControls = new PlayerInputActions();
         pb = GetComponent<playerBar>();
+        
+        ab = GameObject.FindGameObjectWithTag("button").GetComponent<acting_button>();
+        puz = GameObject.FindGameObjectWithTag("puzzle").GetComponent<puzzle>();
     }
     void Update()
-    {
-        moveDirection = move.action.ReadValue<Vector2>();
-        isSprinting = sprint.action.ReadValue<float>() > 0f;
-        isActing = act.action.WasPressedThisFrame();
+    {  
+        if (isPC) 
+        {
+            controller.SetActive(false);
+            sprint_button.SetActive(false);
+        }
+        Debug.Log(playerstate);
+        moveDirection = isPC ? move.action.ReadValue<Vector2>() : joystick.Direction;
+        moveDirection = isPC ? moveDirection : math.round(moveDirection);
+        isSprinting = isPC ? sprint.action.ReadValue<float>() > 0f : sb.pressed; 
+        isActing = isPC ? act.action.WasPressedThisFrame() : ab.pressed;  
         for (int i =0;i < playerAm.Length; i++)
         {
             playerAm[i].GetComponent<Animator>().SetFloat("Xmove",moveDirection.x);
@@ -45,6 +74,20 @@ public class PlayerMovement : MonoBehaviour
     void OnEnable()
     {
         move.action.Enable();
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("puzzle"))
+        {
+            trigged = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("puzzle"))
+        {
+            trigged = false;
+        }
     }
 
 
@@ -79,11 +122,18 @@ public class PlayerMovement : MonoBehaviour
         } 
         if (playerstate)
         {
+            controller.SetActive(true);
+            sprint_button.SetActive(true);
             rb.linearVelocity = moveDirection * _movesp;
+            puz.GUI(true);
         }
         else
         {
             rb.linearVelocity = Vector2.zero;
+            controller.SetActive(false);
+            sprint_button.SetActive(false);
+            puz.GUI(false);
+            
         }
     }
     public void PlayerState(bool statement)

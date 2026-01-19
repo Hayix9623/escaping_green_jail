@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class puzzle : MonoBehaviour
 {
     private PlayerMovement pm;
-    private bool ontrigger;
+    public bool ontrigger;
     private int clickTime;
     private scenceController sc;
     [SerializeField] private GameObject[] GUIs;
@@ -84,8 +84,11 @@ public class puzzle : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
             ontrigger = true;
             input.puzzleIndex = myindex;
+        }
+            
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -111,17 +114,15 @@ public class puzzle : MonoBehaviour
         puzAnimator.SetBool("showed", true);
         InputAnimator.SetBool("appear",true);
         pm.PlayerState(false);
-        GUI(false);
     }
 
     public void closePuzzle()
     {
-        pm.PlayerState(true);
+        if (sc.completePuzzle_num != 3) pm.PlayerState(true);
         puzAnimator.SetBool("showed", false);
         InputAnimator.SetBool("appear",false);
         input.ResetTextColor();
         input.ClearInput();
-        if (sc.completePuzzle_num != 3) GUI(true);
     }
     private void setImageTo()
     {

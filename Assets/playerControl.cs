@@ -72,7 +72,7 @@ using UnityEngine.InputSystem.Utilities;
 /// }
 /// </code>
 /// </example>
-public partial class @PlayerControl: IInputActionCollection2, IDisposable
+public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 {
     /// <summary>
     /// Provides access to the underlying asset instance.
@@ -82,7 +82,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     /// <summary>
     /// Constructs a new instance.
     /// </summary>
-    public @PlayerControl()
+    public @PlayerInputActions()
     {
         asset = InputActionAsset.FromJson(@"{
     ""version"": 1,
@@ -108,7 +108,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""sprint"",
@@ -117,6 +117,15 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""move_phone"",
+                    ""type"": ""Value"",
+                    ""id"": ""46be6599-3d33-42b7-b694-62a558088346"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": true
                 }
             ],
@@ -197,6 +206,17 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""action"": ""sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24a251cd-af8d-475e-b530-9366b409c6dc"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""move_phone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -220,11 +240,12 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_gamePlay_acting = m_gamePlay.FindAction("acting", throwIfNotFound: true);
         m_gamePlay_move = m_gamePlay.FindAction("move", throwIfNotFound: true);
         m_gamePlay_sprint = m_gamePlay.FindAction("sprint", throwIfNotFound: true);
+        m_gamePlay_move_phone = m_gamePlay.FindAction("move_phone", throwIfNotFound: true);
     }
 
-    ~@PlayerControl()
+    ~@PlayerInputActions()
     {
-        UnityEngine.Debug.Assert(!m_gamePlay.enabled, "This will cause a leak and performance issues, PlayerControl.gamePlay.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_gamePlay.enabled, "This will cause a leak and performance issues, PlayerInputActions.gamePlay.Disable() has not been called.");
     }
 
     /// <summary>
@@ -303,17 +324,18 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_gamePlay_acting;
     private readonly InputAction m_gamePlay_move;
     private readonly InputAction m_gamePlay_sprint;
+    private readonly InputAction m_gamePlay_move_phone;
     /// <summary>
     /// Provides access to input actions defined in input action map "gamePlay".
     /// </summary>
     public struct GamePlayActions
     {
-        private @PlayerControl m_Wrapper;
+        private @PlayerInputActions m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public GamePlayActions(@PlayerControl wrapper) { m_Wrapper = wrapper; }
+        public GamePlayActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
         /// Provides access to the underlying input action "gamePlay/acting".
         /// </summary>
@@ -326,6 +348,10 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "gamePlay/sprint".
         /// </summary>
         public InputAction @sprint => m_Wrapper.m_gamePlay_sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "gamePlay/move_phone".
+        /// </summary>
+        public InputAction @move_phone => m_Wrapper.m_gamePlay_move_phone;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -361,6 +387,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @sprint.started += instance.OnSprint;
             @sprint.performed += instance.OnSprint;
             @sprint.canceled += instance.OnSprint;
+            @move_phone.started += instance.OnMove_phone;
+            @move_phone.performed += instance.OnMove_phone;
+            @move_phone.canceled += instance.OnMove_phone;
         }
 
         /// <summary>
@@ -381,6 +410,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @sprint.started -= instance.OnSprint;
             @sprint.performed -= instance.OnSprint;
             @sprint.canceled -= instance.OnSprint;
+            @move_phone.started -= instance.OnMove_phone;
+            @move_phone.performed -= instance.OnMove_phone;
+            @move_phone.canceled -= instance.OnMove_phone;
         }
 
         /// <summary>
@@ -455,5 +487,12 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "move_phone" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove_phone(InputAction.CallbackContext context);
     }
 }

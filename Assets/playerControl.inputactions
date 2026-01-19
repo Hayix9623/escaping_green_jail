@@ -22,7 +22,7 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "sprint",
@@ -31,6 +31,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "move_phone",
+                    "type": "Value",
+                    "id": "46be6599-3d33-42b7-b694-62a558088346",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": true
                 }
             ],
@@ -109,6 +118,17 @@
                     "processors": "",
                     "groups": ";keyboard",
                     "action": "sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24a251cd-af8d-475e-b530-9366b409c6dc",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move_phone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

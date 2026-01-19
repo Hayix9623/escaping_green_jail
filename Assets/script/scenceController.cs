@@ -9,7 +9,7 @@ public class scenceController : MonoBehaviour
     public PlayableDirector drama;
     public void playDrama()
     {
-        if (completePuzzle_num ==required_num)
+        if (completePuzzle_num == required_num)
         {
             drama.Play();
         }
